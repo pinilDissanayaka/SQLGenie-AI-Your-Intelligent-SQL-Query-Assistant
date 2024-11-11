@@ -1,3 +1,4 @@
+import os
 import streamlit as st 
 from database import connect_to_database
 from secret import load_secrets
