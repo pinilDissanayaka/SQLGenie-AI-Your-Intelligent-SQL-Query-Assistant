@@ -45,6 +45,5 @@ def get_llm_response(user_query, database, chat_history):
     sql_query=get_sql_query_from_llm(user_query=user_query, schema=schema, chat_history=chat_history)
     
     sql_response=database.run(sql_query)
-    
-    
-    return chat_chain.invoke({"QUESTION": user_query, "CHAT_HISTORY": chat_history, "QUERY": sql_query})
+        
+    return chat_chain.invoke({"QUESTION": user_query, "SQL_RESPONSE": sql_response, "QUERY": sql_query})

@@ -11,6 +11,25 @@ st.title("SQLGenie AI Your Intelligent SQL Query Assistant")
 
 st.image("assets/cover.jpg")
 
+st.subheader("Welcome to SQLGenie AI! 🌟")
+
+st.write("Transform the way you interact with your data using SQLGenie AI, your intelligent SQL query assistant. Whether you're a data analyst, developer, or a non-technical user, SQLGenie AI turns your natural language questions into accurate SQL queries. Dive into a seamless experience where generating and executing complex database queries is as simple as asking a question.")
+
+
+st.subheader("Key Benefits:")
+
+st.write("No Coding Required: Ask questions in plain English and get SQL queries in seconds.")
+
+st.write("Instant Query Execution: Connect to your database, run queries, and view results with just a click.")
+
+st.write("User-Friendly Interface: Powered by Streamlit for a smooth and interactive experience.")
+
+st.write("Trusted by Professionals: Built on cutting-edge LLM technology with LangChain and Meta Llama 3.2 70b.")
+
+st.write("Ready to make data exploration more intuitive and efficient? Let SQLGenie AI guide your journey.")
+
+st.subheader("Get Started Now!")
+
 with st.sidebar:
     
     st.subheader("LLM Settings")
@@ -68,16 +87,15 @@ with st.sidebar:
                 database=connect_to_database(database_engine=database_engine,host=host, port=int(port), user=user, password=password, database_name=database_name)
                 
                 if database is not None:
-                    if "database" not in st.session_state:
-                        st.session_state.database=database
+                    st.session_state.database=database
                         
                     st.success("Connected to the Database", icon="✅")
-                    st.success(f"Connected to the Database: {database_name}", icon="✅")
+                    st.success(f"Connected to the Database: {st.session_state.connected_database_name}", icon="✅")
                 else:
                     st.error("Failed to connect to the Database", icon="🚫")
                     
                     
     if "connected_database_name" and "database"in st.session_state:
         st.success("Connected to the Database", icon="✅")
-        st.success(f"Connected to the Database: {database_name}", icon="✅")
+        st.success(f"Connected to the Database: {st.session_state.connected_database_name}", icon="✅")
     

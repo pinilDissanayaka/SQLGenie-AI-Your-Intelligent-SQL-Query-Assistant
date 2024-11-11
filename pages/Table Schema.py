@@ -64,17 +64,16 @@ with st.sidebar:
                 database=connect_to_database(database_engine=database_engine,host=host, port=int(port), user=user, password=password, database_name=database_name)
                 
                 if database is not None:
-                    if "database" not in st.session_state:
-                        st.session_state.database=database
+                    st.session_state.database=database
                         
                     st.success("Connected to the Database", icon="✅")
-                    st.success(f"Connected to the Database: {database_name}", icon="✅")
+                    st.success(f"Connected to the Database: {st.session_state.connected_database_name}", icon="✅")
                 else:
                     st.error("Failed to connect to the Database", icon="🚫")
                     
     if "connected_database_name" and "database"in st.session_state:
         st.success("Connected to the Database", icon="✅")
-        st.success(f"Connected to the Database: {database_name}", icon="✅")
+        st.success(f"Connected to the Database: {st.session_state.connected_database_name}", icon="✅")
                     
                     
                     
