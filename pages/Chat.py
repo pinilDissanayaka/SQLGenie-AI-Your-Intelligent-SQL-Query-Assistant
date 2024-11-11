@@ -3,6 +3,7 @@ import streamlit as st
 from langchain_core.messages import AIMessage, HumanMessage
 from database import connect_to_database
 from secret import load_secrets
+from chat import get_llm_response
 
 
 
@@ -96,10 +97,10 @@ if "database" in st.session_state:
             st.markdown(user_query)
         
         with st.chat_message("AI"):
-            history = st.session_state.chat_history
-            database = st.session_state.database
+            chat_history = st.session_state.chat_history
+            schema = st.session_state.database.get_table_info()
             
-            response = "get_response(user_query, st.session_state.db, st.session_state.chat_history)"
+            response = get_llm_response(user_query=user_query, schema=schema, chat_history=chat_history)
             
             st.markdown(response)
         

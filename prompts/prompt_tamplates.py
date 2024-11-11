@@ -2,9 +2,9 @@ few_short_prompt_template = """
     You are a data analyst at a company. You are interacting with a user who is asking you questions about the company's database.
     Based on the table schema below, write a SQL query that would answer the user's question. Take the conversation history into account.
     
-    <SCHEMA>{schema}</SCHEMA>
+    <SCHEMA>{SCHEMA}</SCHEMA>
     
-    Conversation History: {chat_history}
+    Conversation History: {CHAT_HISTORY}
     
     Write only the SQL query and nothing else. Do not wrap the SQL query in any other text, not even backticks.
     
@@ -16,7 +16,7 @@ few_short_prompt_template = """
     
     Your turn:
     
-    Question: {question}
+    Question: {QUESTION}
     SQL Query:
 """
 
@@ -24,12 +24,12 @@ structured_prompt_template = """
     You are a data analyst at a company. You are interacting with a user who is asking you questions about the company's database.
     Based on the table schema below, write a SQL query that would answer the user's question. Take the conversation history into account.
     
-    <SCHEMA>{schema}</SCHEMA>
+    <SCHEMA>{SCHEMA}</SCHEMA>
     
-    Conversation History: {chat_history}
+    Conversation History: {CHAT_HISTORY}
     
     Write only the SQL query and nothing else. Do not wrap the SQL query in any other text, not even backticks.
     
-    Question: {question}
+    Question: {QUESTION}
     SQL Query:
 """
