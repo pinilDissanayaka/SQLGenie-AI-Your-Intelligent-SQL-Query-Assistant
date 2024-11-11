@@ -30,6 +30,17 @@ with st.sidebar:
                 database=connect_to_database(host=host, port=int(port), user=user, password=password, database_name=database_name)
                 
                 if database is not None:
+                    if "database" not in st.session_state:
+                        st.session_state.database=database
+                        
                     st.success("Connected to the Database", icon="✅")
                 else:
                     st.error("Failed to connect to the Database", icon="🚫")
+                    
+                    
+                    
+if "database" in st.session_state:
+    database=st.session_state.database
+        
+    with st.expander("Database Schema"):
+        st.code(database.get_table_info(), language="sql")
