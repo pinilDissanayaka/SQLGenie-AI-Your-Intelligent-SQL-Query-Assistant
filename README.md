@@ -1,4 +1,4 @@
-# BreadcrumbsSQLGenie-AI-Your-Intelligent-SQL-Query-Assistant 🧞‍♂️
+# SQLGenie-AI-Your-Intelligent-SQL-Query-Assistant 🧞‍♂️
 
 
 
