@@ -1,13 +1,9 @@
-import streamlit as st 
+import streamlit as st
 from database import connect_to_database
-
-
-st.set_page_config(page_title="SQLGenie-AI", page_icon=":robot_face:")
 
 
 st.title("SQLGenie AI Your Intelligent SQL Query Assistant")
 
-st.image("assets/cover.jpg")
 
 with st.sidebar:
 
@@ -39,6 +35,36 @@ with st.sidebar:
                     st.success("Connected to the Database", icon="✅")
                 else:
                     st.error("Failed to connect to the Database", icon="🚫")
+
+
+
+if "database" in st.session_state:
+    database=st.session_state.database
+    
+                # Store LLM generated responses
+    if "messages" not in st.session_state.keys():
+        st.session_state.messages = [{"role": "assistant", "content": "How may I help you? 👋"}]
+
+    # Display chat messages
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.write(message["content"])
+
+    # User-provided prompt
+    if prompt := st.chat_input():
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.write(prompt)
+
+    # Generate a new response if last message is not from assistant
+    if st.session_state.messages[-1]["role"] != "assistant":
+        try:
+            with st.chat_message("assistant"):
+                with st.spinner("Thinking..."):
+                    response = "hi"
+                    st.write(response)
                     
-                    
-                    
+            message = {"role": "assistant", "content": response}
+            st.session_state.messages.append(message)
+        except Exception as e:
+            st.warning(f"An unexpected error occurred: {str(e.args)}. Please try again.", icon="⚠️")

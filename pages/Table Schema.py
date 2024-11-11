@@ -1,13 +1,10 @@
+import streamlit as st
+
 import streamlit as st 
 from database import connect_to_database
 
 
 st.set_page_config(page_title="SQLGenie-AI", page_icon=":robot_face:")
-
-
-st.title("SQLGenie AI Your Intelligent SQL Query Assistant")
-
-st.image("assets/cover.jpg")
 
 with st.sidebar:
 
@@ -42,3 +39,13 @@ with st.sidebar:
                     
                     
                     
+if "database" in st.session_state:
+    database=st.session_state.database
+    
+    st.subheader("Table Names")
+
+    st.code(database.get_table_names(), language="sql")
+    
+    st.subheader("Table Schema")
+    
+    st.code(database.get_table_info(), language="sql")
