@@ -1,12 +1,42 @@
-import streamlit as st
-
 import streamlit as st 
 from database import connect_to_database
+from secret import load_secrets
+
 
 
 st.set_page_config(page_title="SQLGenie-AI", page_icon=":robot_face:")
 
 with st.sidebar:
+    
+    st.subheader("LLM Settings")
+    
+    if "OPENAI_API_KEY" or "GROQ_API_KEY" in st.secrets:
+        if "OPENAI_API_KEY" in st.secrets:
+            load_secrets(openai_api_key=st.secrets["OPENAI_API_KEY"])
+        if "GROQ_API_KEY" in st.secrets:
+            load_secrets(groq_api_key=st.secrets["GROQ_API_KEY"])
+    
+    else:
+        st.write("Provide API key for Large Language Model")
+        
+        openai_api_key=st.text_input("OpenAI API Key", value="", type="password")
+        
+        st.write("or")
+        
+        groq_api_key=st.text_input("GROQ API Key", value="", type="password")
+        
+        
+        if st.button("Save"):
+            if openai_api_key != "":
+                load_secrets(openai_api_key=openai_api_key)
+            elif groq_api_key != "":
+                load_secrets(groq_api_key=groq_api_key)
+            else:
+                st.error("Please provide either OpenAI API Key or GROQ API Key", icon="🚫")
+                
+    if "OPENAI_API_KEY" or "GROQ_API_KEY" in os.environ:
+        st.success("API Key Loaded Successfully", icon="✅")
+    
 
     st.subheader("Database Settings")
     
