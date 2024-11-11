@@ -21,7 +21,6 @@ few_short_prompt_template = """
 """
 
 structured_prompt_template = """
-    You are a data analyst at a company. You are interacting with a user who is asking you questions about the company's database.
     Based on the table schema below, write a SQL query that would answer the user's question. Take the conversation history into account.
     
     <SCHEMA>{SCHEMA}</SCHEMA>
@@ -32,4 +31,17 @@ structured_prompt_template = """
     
     Question: {QUESTION}
     SQL Query:
+"""
+
+
+natural_language_prompt_template = """
+    Based on the table schema below, question, sql query, and sql response, write a natural language response.
+    
+    SQL Query: <SQL>{QUERY}</SQL>
+    
+    User question: {QUESTION}
+    
+    SQL Response: {SQL_RESPONSE}
+    
+    Write only the natural language response and nothing else. Do not wrap the natural language response in any other text, not even backticks.
 """

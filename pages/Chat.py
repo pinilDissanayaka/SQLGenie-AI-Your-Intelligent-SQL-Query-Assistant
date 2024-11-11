@@ -54,12 +54,16 @@ with st.sidebar:
     
     password=st.text_input("Password", value="", type="password")
     
-    database_name=st.text_input("Database", value="librarymanagement")
+    database_name=st.text_input("Database Name")
     
     
     if host and port and user and database_name:
         if st.button("Connect to Database"):
             with st.spinner("Connect to the Database:"):
+                
+                if "connected_database_name" not in st.session_state:
+                    st.session_state.connected_database_name=database_name
+                
                 database=connect_to_database(database_engine=database_engine,host=host, port=int(port), user=user, password=password, database_name=database_name)
                 
                 if database is not None:
@@ -67,8 +71,25 @@ with st.sidebar:
                         st.session_state.database=database
                         
                     st.success("Connected to the Database", icon="✅")
+                    st.success(f"Connected to the Database: {database_name}", icon="✅")
                 else:
                     st.error("Failed to connect to the Database", icon="🚫")
+                    
+            if "chat_history" in st.session_state:
+                st.session_state.chat_history = [
+                    AIMessage(content="Hello! I'm a SQL assistant. Ask me anything about your database."),
+                ]
+                
+    if "connected_database_name" and "database"in st.session_state:
+        st.success("Connected to the Database", icon="✅")
+        st.success(f"Connected to the Database: {database_name}", icon="✅")
+                
+                
+    if st.button("Clear Chat History"):
+        if "chat_history" in st.session_state:
+            st.session_state.chat_history = [
+                AIMessage(content="Hello! I'm a SQL assistant. Ask me anything about your database."),
+            ]
 
 
 
@@ -98,9 +119,10 @@ if "database" in st.session_state:
         
         with st.chat_message("AI"):
             chat_history = st.session_state.chat_history
-            schema = st.session_state.database.get_table_info()
+            database = st.session_state.database
             
-            response = get_llm_response(user_query=user_query, schema=schema, chat_history=chat_history)
+            response = get_llm_response(user_query=user_query, database=database, chat_history=chat_history)
+            
             
             st.markdown(response)
         

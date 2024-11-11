@@ -1,1 +1,1 @@
-from .prompt_tamplates import few_short_prompt_template, structured_prompt_template
+from .prompt_tamplates import few_short_prompt_template, structured_prompt_template, natural_language_prompt_template

@@ -8,8 +8,8 @@ from langchain_openai.chat_models import ChatOpenAI
 
 def get_llm():
     if "OPENAI_API_KEY" in os.environ:
-        return ChatOpenAI(temperature=0.8)
+        return ChatOpenAI(temperature=0)
     elif "GROQ_API_KEY" in os.environ:
-        return ChatGroq(temperature=0.8)
+        return ChatGroq(model="llama-3.1-70b-versatile", temperature=0)
     else:
         st.error("Please provide either OpenAI API Key or GROQ API Key", icon="🚫")
